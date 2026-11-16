@@ -166,7 +166,7 @@ func main() {
 		}
 
 		conn, err := websocket.Accept(c.Writer, c.Request, &websocket.AcceptOptions{
-			OriginPatterns: []string{"localhost:3000", "https://test-gin-chat-demo.onrender.com/"},
+			OriginPatterns: []string{"localhost:3000", "test-gin-chat-demo.onrender.com", "https://test-gin-chat-demo.onrender.com/"},
 		})
 		if err != nil {
 			log.Printf("WebSocket accept failed: %v", err)
