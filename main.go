@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -165,7 +166,7 @@ func main() {
 		}
 
 		conn, err := websocket.Accept(c.Writer, c.Request, &websocket.AcceptOptions{
-			OriginPatterns: []string{"localhost:3000"},
+			OriginPatterns: []string{"localhost:3000", "https://test-gin-chat-demo.onrender.com/"},
 		})
 		if err != nil {
 			log.Printf("WebSocket accept failed: %v", err)
@@ -174,6 +175,11 @@ func main() {
 
 		hub.serveClient(conn, name)
 	})
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000" // For local testing
+	}
 
 	log.Fatal(router.Run(":8080"))
 }
